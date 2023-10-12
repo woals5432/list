@@ -65,7 +65,7 @@ section footer {
 ul.items {
   height: 400px;
   overflow-y: auto;
-  padding-bottom: 30px;
+  padding: 10px 0;
   background: #005b4b;
   color: #2F4858;
   border: 1px solid white;
