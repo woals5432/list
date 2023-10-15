@@ -26,14 +26,12 @@ const init = () => {
   const userList = JSON.parse(localStorage.getItem('shoplist'))
   //js사용할 수 있는 array형태로 변환
 
-
   if (userList) {
     userList.forEach(obj => {
       creatItem(obj);
       shoppingLists = userList;
     })
   }
-
 
 }
 
@@ -116,10 +114,8 @@ function updateCounter() {  //카운터값을 요소에 집어넣는
 }
 
 
-function page() {
-  counter1 = Math.floor((counter - 1) / 8) + 1;
+function page() {  //총페이지 수 
+  counter1 = Math.floor((counter - 1) / 8) + 1; //카운터의 소수점 버림
   counterElement1.textContent = counter1;
 }
-
-
 
