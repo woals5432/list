@@ -5,6 +5,13 @@ const items = document.querySelector('.items')//ul.items
 const input = document.querySelector('.footer_input')//footer_input
 const addBtn = document.querySelector('.footer_addBtn')//footer_addBtn
 
+const counterElement = document.getElementById('counter');
+const counterElement1 = document.getElementById('counter1');
+let counter = 0; //버튼을 클릭하거나 지울시 갖는 변수 초기값
+let counter1 = 1;
+
+
+
 //let id = 0; - 이 방법은 id가 겹치는 문제 발생
 let shoppingLists = []; //입력한 내용을 넣을 배열 선언
 
@@ -16,17 +23,20 @@ const save = () => {
 
 // localStorage에 저장된 것을 가져오는 함수
 const init = () => {
-    const userList = JSON.parse(localStorage.getItem('shoplist'))
-    //js사용할 수 있는 array형태로 변환
+  const userList = JSON.parse(localStorage.getItem('shoplist'))
+  //js사용할 수 있는 array형태로 변환
 
-    if (userList) {
-      userList.forEach(obj => {
-        creatItem(obj);
-        shoppingLists = userList
-      })
-    }
-  
+
+  if (userList) {
+    userList.forEach(obj => {
+      creatItem(obj);
+      shoppingLists = userList;
+    })
+  }
+
+
 }
+
 init()
 
 const onAdd = () => {
@@ -43,14 +53,15 @@ const onAdd = () => {
   shoppingLists.push(list)  //오브젝트를 배열에 집어 넣음
   save()  //배열을 localStorage 저장하는 함수 실행
 
-  
+
 
   creatItem(list);  //인자에 오브젝트를 넣어서 createItem함수 실행
 
   input.value = '';
   input.focus();
 
-  console.log(shoppingLists);
+  counter++;  //버튼 클릭시 카운터 전역변수 증가
+  updateCounter();
 }
 
 
@@ -90,8 +101,25 @@ items.addEventListener('click', (e) => {
     const toBeDeleted = document.querySelector(`.item_row[data-id="${clickId}"]`)
     toBeDeleted.remove();
 
+    counter--;
+    updateCounter();
+
     //localstorage도 삭제 
     shoppingLists = shoppingLists.filter(aa => aa.id != clickId)
     save()
   }
 })
+
+function updateCounter() {  //카운터값을 요소에 집어넣는
+  counterElement.textContent = counter;
+  page()
+}
+
+
+function page() {
+  counter1 = Math.floor((counter - 1) / 8) + 1;
+  counterElement1.textContent = counter1;
+}
+
+
+
